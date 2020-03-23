@@ -11,9 +11,6 @@ int main()
     cout << "A - B = " << a - b << '\n';
     cout << "A * B = " << a * b << '\n';
     cout << "A / B = " << a / b << '\n';
-// HEAD
-    cout << "Max " << max(a,b) << '\n';
-//
     cout << "min = " << min(a,b) << '\n';
-// code:added min
+
 }
