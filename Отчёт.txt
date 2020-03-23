@@ -1,0 +1,761 @@
+Запустил Git Bash. Ввёл "mkdir lb02" создался каталог по пути "C:\Users\Andrej\lb02".
+Перешёл в lb02 с помошью команд cd lb02.
+ls ничего не отобразила.
+Создал alice, bob.
+Перешёл в Alice с помошью команд 'cd Alice '.
+mkdir project ,  cd project , cd .. ,  cd project ;
+>>git init : Initialized empty Git repository in C:/Users/Andrej/lb02/alice/project/.git/
+Andrej@DESKTOP-S7MV5EI MINGW64 ~/lb02/alice/project (master)
+>>git config user.name 'Alice (IvanovII)'
+>>git config user.email 'alice@example.com'
+//
+Project title: project
+Folder to create project in: C:\Users\Andrej\lb02\alice\project
+Project filename: project.cbp
+Resulting filename: C:\Users\user\Desktop\lab02\alice\project\project.cbp
+Проек собран
+//
+$ git status
+On branch master 
+No commits yet (На родительской ветке нет коммитов)
+Untracked files: (но есть не отслеживаемый каталог project, если его добавить то можно будет добовлять коммиты по отношению к каталогу)
+  (use "git add <file>..." to include in what will be committed)
+        project/
+nothing added to commit but untracked files present (use "git add" to track)
+
+$ git add main.cpp
+$git commit -m 'code: заготовка программы'
+[master (root-commit) 926e060] code: заготовка программы
+ 1 file changed, 9 insertions(+)
+ create mode 100644 main.cpp
+$ git add project.cbp
+warning: LF will be replaced by CRLF in project.cbp.
+The file will have its original line endings in your working directory
+
+$ git commit -m 'build: add project file'
+[master 31f73e6] build: add project file
+ 1 file changed, 42 insertions(+)
+ create mode 100644 project.cbp
+
+Замена тела main
+cout << "Enter A and B: ";
+int a, b;
+cin >> a >> b;
+
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   main.cpp
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        bin/
+        obj/
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Добавилось оповищение о модификации main.cpp
+
+$ git commit -m "code:added + and - operation"
+[master b71646c] code:added + and - operation
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+Добавил в корневую папку ign.gitignore: 
+/bin
+/obj
+$ git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .gitignore
+        main.exe
+        main.o
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+$ git commit -m "build:added ignorance"
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .gitignore
+        main.exe
+        main.o
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+$ git log --oneline --decorate --all --graph
+* b71646c (HEAD -> master) code:added + and - operation
+* 31f73e6 build: add project file
+* 926e060 code: заготовка программы
+$ git log --oneline --decorate
+b71646c (HEAD -> master) code:added + and - operation
+31f73e6 build: add project file
+926e060 code: заготовка программы
+
+
+$ git log --stat
+commit b71646c69433a7a1bb9a6514bcf9082b4f23f9d0 (HEAD -> master)
+Author: Alice (IvanovII) <alice@example.com>
+Date:   Mon Mar 23 12:48:52 2020 +0300
+
+    code:added + and - operation
+
+ main.cpp | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+commit 31f73e6471310c843c88733fbaf07ea4db7931da
+Author: Alice (IvanovII) <alice@example.com>
+Date:   Mon Mar 23 12:41:14 2020 +0300
+
+    build: add project file
+
+ project.cbp | 42 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 42 insertions(+) (42 вставки)
+
+commit 926e060da8dc292ed6b15aa96914b0cf60aedb93  (хэш коммита)
+Author: Alice (IvanovII) <alice@example.com> (автор)
+Date:   Mon Mar 23 12:36:17 2020 +0300 (дата)
+
+    code: заготовка программы (коммит)
+
+main.cpp | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+(END)
+
+$ git add .gitignore
+$ git commit -m "build: added ignorance"
+[master 4b9c5de] build: added ignorance
+ 1 file changed, 2 insertions(+)
+ create mode 100644 .gitignore
+
+git log -- main.cpp
+commit b71646c69433a7a1bb9a6514bcf9082b4f23f9d0
+Author: Alice (IvanovII) <alice@example.com>
+Date:   Mon Mar 23 12:48:52 2020 +0300
+
+    code:added + and - operation
+
+commit 926e060da8dc292ed6b15aa96914b0cf60aedb93
+Author: Alice (IvanovII) <alice@example.com>
+Date:   Mon Mar 23 12:36:17 2020 +0300
+
+    code: заготовка программы
+
+$ git log --grep "build:"
+commit 4b9c5dec0cf381b059edcd4f05bfddf0157f1d23 (HEAD -> master)
+Author: Alice (IvanovII) <alice@example.com>
+Date:   Mon Mar 23 13:18:45 2020 +0300
+
+    build: added ignorance
+
+commit 31f73e6471310c843c88733fbaf07ea4db7931da
+Author: Alice (IvanovII) <alice@example.com>
+Date:   Mon Mar 23 12:41:14 2020 +0300
+
+    build: add project file
+
+$ git log -- project.cbp
+commit 31f73e6471310c843c88733fbaf07ea4db7931da
+Author: Alice (IvanovII) <alice@example.com>
+Date:   Mon Mar 23 12:41:14 2020 +0300
+
+    build: add project file
+
+
+$ git show HEAD
+commit 4b9c5dec0cf381b059edcd4f05bfddf0157f1d23 (HEAD -> master)
+Author: Alice (IvanovII) <alice@example.com>
+Date:   Mon Mar 23 13:18:45 2020 +0300
+
+    build: added ignorance
+
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..4c7473d
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,2 @@
++/bin
++/obj
+
+$ git show master
+commit 4b9c5dec0cf381b059edcd4f05bfddf0157f1d23 (HEAD -> master)
+Author: Alice (IvanovII) <alice@example.com>
+Date:   Mon Mar 23 13:18:45 2020 +0300
+
+    build: added ignorance
+
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..4c7473d
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,2 @@
++/bin
++/obj
+
+$ git show 4b9c5
+commit 4b9c5dec0cf381b059edcd4f05bfddf0157f1d23 (HEAD -> master)
+Author: Alice (IvanovII) <alice@example.com>
+Date:   Mon Mar 23 13:18:45 2020 +0300
+
+    build: added ignorance
+
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..4c7473d
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,2 @@
++/bin
++/obj
+
+Добавил
+cout << "A*B = " << a*b << '\n';
+
+$ git diff
+diff --git a/main.cpp b/main.cpp
+index e84d77b..93b7610 100644
+--- a/main.cpp
++++ b/main.cpp
+@@ -9,4 +9,5 @@ int main()
+     cin >> a >> b;
+     cout << "A + B = " << a + b << '\n';
+     cout << "A - B = " << a - b << '\n';
++    cout << "A*B = " << a*b << '\n'; (Показывает, что последним была добавлена эта строчка произошедшие в main.cpp)
+ }
+
+$ git diff HEAD~2
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..4c7473d
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,2 @@
++/bin
++/obj
+diff --git a/main.cpp b/main.cpp
+index b4392ec..93b7610 100644
+--- a/main.cpp
++++ b/main.cpp
+@@ -4,6 +4,10 @@ using namespace std;
+
+ int main()
+ {
+-    cout << "Hello world!" << endl;
+-    return 0;
++    cout << "Enter A and B: ";
++    int a, b;
++    cin >> a >> b;
++    cout << "A + B = " << a + b << '\n';
++    cout << "A - B = " << a - b << '\n';
++    cout << "A*B = " << a*b << '\n';
+ }
+(END)
+
+$ git diff HEAD~2 HEAD
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..4c7473d
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,2 @@
++/bin
++/obj
+diff --git a/main.cpp b/main.cpp
+index b4392ec..e84d77b 100644
+--- a/main.cpp
++++ b/main.cpp
+@@ -4,6 +4,9 @@ using namespace std;
+
+ int main()
+ {
+-    cout << "Hello world!" << endl;
+-    return 0;
++    cout << "Enter A and B: ";
++    int a, b;
++    cin >> a >> b;
++    cout << "A + B = " << a + b << '\n';
++    cout << "A - B = " << a - b << '\n';
+ }
+(END)
+
+
+$ git diff HEAD~3 HEAD
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..4c7473d
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,2 @@
++/bin
++/obj
+diff --git a/main.cpp b/main.cpp
+index b4392ec..e84d77b 100644
+--- a/main.cpp
++++ b/main.cpp
+@@ -4,6 +4,9 @@ using namespace std;
+
+ int main()
+ {
+-    cout << "Hello world!" << endl;
+-    return 0;
++    cout << "Enter A and B: ";
++    int a, b;
++    cin >> a >> b;
++    cout << "A + B = " << a + b << '\n';
++    cout << "A - B = " << a - b << '\n';
+ }
+diff --git a/project.cbp b/project.cbp
+new file mode 100644
+index 0000000..971cb1f
+--- /dev/null
++++ b/project.cbp
+@@ -0,0 +1,42 @@
++<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
++<CodeBlocks_project_file>
++       <FileVersion major="1" minor="6" />
++       <Project>
++               <Option title="project" />
++               <Option pch_mode="2" />
++               <Option compiler="mingw-w64_gcc" />
++               <Build>
++                       <Target title="Debug">
++                               <Option output="bin/Debug/project" prefix_auto="1" extension_auto="1" />
++                               <Option object_output="obj/Debug/" />
++                               <Option type="1" />
++                               <Option compiler="mingw-w64_gcc" />
++                               <Compiler>
++                                       <Add option="-g" />
++                               </Compiler>
++                       </Target>
++                       <Target title="Release">
++                               <Option output="bin/Release/project" prefix_auto="1" extension_auto="1" />
++                               <Option object_output="obj/Release/" />
++                               <Option type="1" />
++                               <Option compiler="mingw-w64_gcc" />
++                               <Compiler>
++                                       <Add option="-O2" />
++                               </Compiler>
++                               <Linker>
++                                       <Add option="-s" />
++                               </Linker>
++                       </Target>
++               </Build>
++               <Compiler>
++                       <Add option="-Wall" />
++                       <Add option="-fexceptions" />
++               </Compiler>
++               <Unit filename="main.cpp" />
++               <Extensions>
++                       <code_completion />
++                       <envvars />
++                       <debugger />
++               </Extensions>
++       </Project>
++</CodeBlocks_project_file>
+(END)
+
+
+$ git add main.cpp
+$ git commit -m "code: added * operation"
+[master 7d11a83] code: added * operation
+ 1 file changed, 1 insertion(+)
+
+$ git reset --hard HEAD~1
+HEAD is now at 4b9c5de build: added ignorance
+Подтвердил изменения
+Добавлен // you may type whatever you want
+
+$ git checkout HEAD -- main.cpp
+
+$ git remote add origin https://github.com/AndrejCuckoo/cs-lab02.git
+
+$ git push -u origin master
+Enumerating objects: 12, done.
+Counting objects: 100% (12/12), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (10/10), done.
+Writing objects: 100% (12/12), 1.64 KiB | 841.00 KiB/s, done.
+Total 12 (delta 0), reused 0 (delta 0)
+To https://github.com/AndrejCuckoo/cs-lab02.git
+ * [new branch]      master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+
+https://github.com/AndrejCuckoo/cs-lab02.git
+
+Andrej@DESKTOP-S7MV5EI MINGW64 ~/lb02/bob
+$ git clone https://github.com/AndrejCuckoo/cs-lab02.git project
+Cloning into 'project'...
+remote: Enumerating objects: 12, done.
+remote: Counting objects: 100% (12/12), done.
+remote: Compressing objects: 100% (10/10), done.
+remote: Total 12 (delta 0), reused 12 (delta 0), pack-reused 0
+Unpacking objects: 100% (12/12), 1.62 KiB | 22.00 KiB/s, done.
+
+$ git config user.name 'Bob (andrey)'
+
+$ git config user.email 'Bob@example.com'
+
+Andrej@DESKTOP-S7MV5EI MINGW64 ~/lb02/bob/project (master)
+$ git add main.cpp
+
+Andrej@DESKTOP-S7MV5EI MINGW64 ~/lb02/bob/project (master)
+$ git commit -m "code:aded * operation"
+[master dc3e380] code:aded * operation
+ 1 file changed, 1 insertion(+)
+
+git log -- main.cpp
+commit dc3e38094f6195f36f3d26e78b1770fc801e3078 (HEAD -> master)
+Author: Bob (andrey) <Bob@example.com>
+Date:   Mon Mar 23 14:44:41 2020 +0300
+
+    code:aded * operation
+
+commit b71646c69433a7a1bb9a6514bcf9082b4f23f9d0
+Author: Alice (IvanovII) <alice@example.com>
+Date:   Mon Mar 23 12:48:52 2020 +0300
+
+    code:added + and - operation
+
+commit 926e060da8dc292ed6b15aa96914b0cf60aedb93
+Author: Alice (IvanovII) <alice@example.com>
+Date:   Mon Mar 23 12:36:17 2020 +0300
+
+    code: заготовка программы
+
+Последний коммит сделан Бобом
+
+$ git push
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 381 bytes | 381.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/AndrejCuckoo/cs-lab02.git
+   4b9c5de..dc3e380  master -> master
+
+
+Andrej@DESKTOP-S7MV5EI MINGW64 ~/lb02/alice/project (master)
+$ git fetch
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 1), reused 3 (delta 1), pack-reused 0
+Unpacking objects: 100% (3/3), 361 bytes | 15.00 KiB/s, done.
+From https://github.com/AndrejCuckoo/cs-lab02
+   4b9c5de..dc3e380  master     -> origin/master
+
+$ git log --oneline --decorate --all --graph
+* dc3e380 (origin/master) code:aded * operation
+* 4b9c5de (HEAD -> master) build: added ignorance
+* b71646c code:added + and - operation
+* 31f73e6 build: add project file
+* 926e060 code: заготовка программы
+
+$ git pull --ff-only
+Updating 4b9c5de..dc3e380
+Fast-forward
+ main.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+Andrej@DESKTOP-S7MV5EI MINGW64 ~/lb02/alice/project (master)
+$ git commit -m "added / operation"
+[master 34a33d7] added / operation
+ 1 file changed, 1 insertion(+)
+
+$ git push
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 377 bytes | 377.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/AndrejCuckoo/cs-lab02.git
+   dc3e380..34a33d7  master -> master
+
+Andrej@DESKTOP-S7MV5EI MINGW64 ~/lb02/bob/project (master)
+$ git fetch
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 1), reused 3 (delta 1), pack-reused 0
+Unpacking objects: 100% (3/3), 357 bytes | 19.00 KiB/s, done.
+From https://github.com/AndrejCuckoo/cs-lab02
+   dc3e380..34a33d7  master     -> origin/master
+
+$ git log --oneline --decorate --all --graph
+* 34a33d7 (origin/master, origin/HEAD) added / operation
+* dc3e380 (HEAD -> master) code:aded * operation
+* 4b9c5de build: added ignorance
+* b71646c code:added + and - operation
+* 31f73e6 build: add project file
+* 926e060 code: заготовка программы
+
+Andrej@DESKTOP-S7MV5EI MINGW64 ~/lb02/bob/project (master)
+$ git pull --ff-only
+Updating dc3e380..34a33d7
+Fast-forward
+ main.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+
+Andrej@DESKTOP-S7MV5EI MINGW64 ~/lb02/alice/project (master)
+$ git commit -m "code:added max"
+[master 1692a75] code:added max
+ 1 file changed, 1 insertion(+)
+
+$ git push
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 375 bytes | 375.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/AndrejCuckoo/cs-lab02.git
+   34a33d7..1692a75  master -> master
+
+
+Andrej@DESKTOP-S7MV5EI MINGW64 ~/lb02/bob/project (master)
+$ git fetch
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 1), reused 3 (delta 1), pack-reused 0
+Unpacking objects: 100% (3/3), 355 bytes | 20.00 KiB/s, done.
+From https://github.com/AndrejCuckoo/cs-lab02
+   34a33d7..1692a75  master     -> origin/master
+
+
+Andrej@DESKTOP-S7MV5EI MINGW64 ~/lb02/bob/project (master)
+$ git add main.cpp
+
+Andrej@DESKTOP-S7MV5EI MINGW64 ~/lb02/bob/project (master)
+$ git commit -m "code:added min"
+[master 7525588] code:added min
+ 1 file changed, 1 insertion(+)
+
+Andrej@DESKTOP-S7MV5EI MINGW64 ~/lb02/bob/project (master)
+$ git push
+To https://github.com/AndrejCuckoo/cs-lab02.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'https://github.com/AndrejCuckoo/cs-lab02.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+Andrej@DESKTOP-S7MV5EI MINGW64 ~/lb02/bob/project (master)
+$ git log --oneline --decorate --all --graph
+* 7525588 (HEAD -> master) code:added min
+| * 1692a75 (origin/master, origin/HEAD) code:added max
+|/
+* 34a33d7 added / operation
+* dc3e380 code:aded * operation
+* 4b9c5de build: added ignorance
+* b71646c code:added + and - operation
+* 31f73e6 build: add project file
+* 926e060 code: заготовка программы
+
+
+$ git rebase origin/master
+First, rewinding head to replay your work on top of it...
+Applying: code:added min
+Using index info to reconstruct a base tree...
+M       main.cpp
+Falling back to patching base and 3-way merge...
+Auto-merging main.cpp
+CONFLICT (content): Merge conflict in main.cpp
+error: Failed to merge in the changes.
+hint: Use 'git am --show-current-patch' to see the failed patch
+Patch failed at 0001 code:added min
+Resolve all conflicts manually, mark them as resolved with
+"git add/rm <conflicted_files>", then run "git rebase --continue".
+You can instead skip this commit: run "git rebase --skip".
+To abort and get back to the state before "git rebase", run "git rebase --abort".
+
+Согласился на изменения в коде
+
+
+$ git add main.cpp
+
+Andrej@DESKTOP-S7MV5EI MINGW64 ~/lb02/bob/project (master|REBASE 1/1)
+$ git rebase --coninue
+error: unknown option `coninue'
+usage: git rebase [-i] [options] [--exec <cmd>] [--onto <newbase> | --keep-base] [<upstream> [<branch>]]
+   or: git rebase [-i] [options] [--exec <cmd>] [--onto <newbase>] --root [<branch>]
+   or: git rebase --continue | --abort | --skip | --edit-todo
+
+    --onto <revision>     rebase onto given branch instead of upstream
+    --keep-base           use the merge-base of upstream and branch as the current base
+    --no-verify           allow pre-rebase hook to run
+    -q, --quiet           be quiet. implies --no-stat
+    -v, --verbose         display a diffstat of what changed upstream
+    -n, --no-stat         do not show diffstat of what changed upstream
+    --signoff             add a Signed-off-by: line to each commit
+    --ignore-whitespace   passed to 'git am'
+    --committer-date-is-author-date
+                          passed to 'git am'
+    --ignore-date         passed to 'git am'
+    -C <n>                passed to 'git apply'
+    --whitespace <action>
+                          passed to 'git apply'
+    -f, --force-rebase    cherry-pick all commits, even if unchanged
+    --no-ff               cherry-pick all commits, even if unchanged
+    --continue            continue
+    --skip                skip current patch and continue
+    --abort               abort and check out the original branch
+    --quit                abort but keep HEAD where it is
+    --edit-todo           edit the todo list during an interactive rebase
+    --show-current-patch  show the patch file being applied or merged
+    -m, --merge           use merging strategies to rebase
+    -i, --interactive     let the user edit the list of commits to rebase
+    --rerere-autoupdate   update the index with reused conflict resolution if possible
+    -k, --keep-empty      preserve empty commits during rebase
+    --autosquash          move commits that begin with squash!/fixup! under -i
+    -S, --gpg-sign[=<key-id>]
+                          GPG-sign commits
+    --autostash           automatically stash/stash pop before and after
+    -x, --exec <exec>     add exec lines after each commit of the editable list
+    --allow-empty-message
+                          allow rebasing commits with empty messages
+    -r, --rebase-merges[=<mode>]
+                          try to rebase merges instead of skipping them
+    --fork-point          use 'merge-base --fork-point' to refine upstream
+    -s, --strategy <strategy>
+                          use the given merge strategy
+    -X, --strategy-option <option>
+                          pass the argument through to the merge strategy
+    --root                rebase all reachable commits up to the root(s)
+    --reschedule-failed-exec
+                          automatically re-schedule any `exec` that fails
+
+$ git log --oneline --decorate --all --graph
+* 7525588 (master) code:added min
+| * 1692a75 (HEAD, origin/master, origin/HEAD) code:added max
+|/
+* 34a33d7 added / operation
+* dc3e380 code:aded * operation
+* 4b9c5de build: added ignorance
+* b71646c code:added + and - operation
+* 31f73e6 build: add project file
+* 926e060 code: заготовка программы
+
+$ git show HEAD
+commit 1692a754301dcdcd1266f4ebfa737fe3f9aa4f2d (HEAD, origin/master, origin/HEAD)
+Author: Alice (IvanovII) <alice@example.com>
+Date:   Mon Mar 23 15:31:05 2020 +0300
+
+    code:added max
+
+diff --git a/main.cpp b/main.cpp
+index ff5566d..0aabb1a 100644
+--- a/main.cpp
++++ b/main.cpp
+@@ -11,4 +11,5 @@ int main()
+     cout << "A - B = " << a - b << '\n';
+     cout << "A * B = " << a * b << '\n';
+     cout << "A / B = " << a / b << '\n';
++    cout << "Max " << max(a,b) << '\n';
+ }
+
+Andrej@DESKTOP-S7MV5EI MINGW64 ~/lb02/bob/project (master|REBASE 1/1)
+$ git show master
+commit 752558812c2a64833e23fd586369a311e77e5539 (master)
+Author: Bob (andrey) <Bob@example.com>
+Date:   Mon Mar 23 15:34:40 2020 +0300
+
+    code:added min
+
+diff --git a/main.cpp b/main.cpp
+index ff5566d..c1c0a81 100644
+--- a/main.cpp
++++ b/main.cpp
+@@ -11,4 +11,5 @@ int main()
+     cout << "A - B = " << a - b << '\n';
+     cout << "A * B = " << a * b << '\n';
+     cout << "A / B = " << a / b << '\n';
++    cout << "min = " << min(a,b) << '\n';
+ }
+
+$ git branch double
+
+Andrej@DESKTOP-S7MV5EI MINGW64 ~/lb02/alice/project (master)
+$ git checkout double
+Switched to branch 'double'
+
+Andrej@DESKTOP-S7MV5EI MINGW64 ~/lb02/alice/project (double)
+$ git add main.cpp
+
+Andrej@DESKTOP-S7MV5EI MINGW64 ~/lb02/alice/project (double)
+$ git commit -m "code:added double"
+[double 2a0b619] code:added double
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+$ git checkout master
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+
+Andrej@DESKTOP-S7MV5EI MINGW64 ~/lb02/alice/project (master)
+$ git push
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 356 bytes | 356.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/AndrejCuckoo/cs-lab02.git
+   1692a75..7f717cd  master -> master
+
+Andrej@DESKTOP-S7MV5EI MINGW64 ~/lb02/alice/project (master)
+$ git log --oneline --decorate --all --graph
+* 7f717cd (HEAD -> master, origin/master) code:added double
+| * 2a0b619 (double) code:added double
+|/
+* 1692a75 code:added max
+* 34a33d7 added / operation
+* dc3e380 code:aded * operation
+* 4b9c5de build: added ignorance
+* b71646c code:added + and - operation
+* 31f73e6 build: add project file
+* 926e060 code: заготовка программы
+
+Andrej@DESKTOP-S7MV5EI MINGW64 ~/lb02/alice/project (master)
+$ git merge double
+Merge made by the 'recursive' strategy.
+
+
+Andrej@DESKTOP-S7MV5EI MINGW64 ~/lb02/alice/project (master)
+$ git push
+Enumerating objects: 2, done.
+Counting objects: 100% (2/2), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 334 bytes | 334.00 KiB/s, done.
+Total 2 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), done.
+To https://github.com/AndrejCuckoo/cs-lab02.git
+   7f717cd..5d7018b  master -> master
+
+
+Andrej@DESKTOP-S7MV5EI MINGW64 ~/lb02/alice/project (master)
+$ git log --oneline --decorate --all --graph
+*   5d7018b (HEAD -> master, origin/master) Merge branch 'double' training commit.
+|\
+| * 2a0b619 (double) code:added double
+* | 7f717cd code:added double
+|/
+* 1692a75 code:added max
+* 34a33d7 added / operation
+* dc3e380 code:aded * operation
+* 4b9c5de build: added ignorance
+* b71646c code:added + and - operation
+* 31f73e6 build: add project file
+* 926e060 code: заготовка программы
+
