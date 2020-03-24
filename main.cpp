@@ -14,11 +14,11 @@ int main()
 // HEAD
 // HEAD
     cout << "Max " << max(a,b) << '\n';
+// HEAD
 //////// HEAD
     //fixed max
 // code:added min
-//
-    cout << "min = " << min(a,b) << '\n';
-
 //// Fixed min
+    cout << "Min " << min(a,b) << '\n';
+// ddf1fdbb7d70e9b29381f404c8110b7e2d0a2603
 }
