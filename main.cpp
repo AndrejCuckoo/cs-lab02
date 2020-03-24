@@ -14,7 +14,7 @@ int main()
 // HEAD
 // HEAD
     cout << "Max " << max(a,b) << '\n';
-// HEAD
+    //HEAD
 //////// HEAD
     //fixed max
 // code:added min
